@@ -1,8 +1,9 @@
-final ctx = context(scope: scriptScope())
+// mark the folder as resource folder and execute
+final ctx = context(filetypes: ["groovy"])
 
 /**
- * @see com.intellij.database.extensions.ExtractorScripts
- * @see com.intellij.database.extensions.DataExtractorBindings
+ * @see com.intellij.database.extensions.ExtractorScripts*
+ * @see com.intellij.database.extensions.DataExtractorBindings*
  * @see com.intellij.database.extensions.SchemaGeneratorBindings
  */
 contributor(ctx) {
@@ -21,9 +22,10 @@ contributor(ctx) {
     //    public static final Binding<Project> PROJECT = new Binding("PROJECT");
     property name: 'PROJECT', type: 'com.intellij.openapi.project.Project', doc: 'current project'
     //    public static final Binding<DatabaseDialect> DATABASE_DIALECT = new Binding("DIALECT");
-    property name: 'DATABASE_DIALECT', type: 'com.intellij.database.dialects.DatabaseDialect', doc: 'current database dialect'
+    property name: 'DIALECT', type: 'com.intellij.database.dialects.DatabaseDialect', doc: 'current database dialect'
     //    public static final Binding<DasObject> DATABASE_TABLE = new Binding("TABLE");
-    property name: 'DATABASE_TABLE', type: 'com.intellij.database.model.DasObject', doc: 'current database table'
+    // class com.intellij.database.psi.DbTableImpl
+    property name: 'TABLE', type: 'com.intellij.database.psi.DbTableImpl', doc: 'current database table'
     //    public static final Binding<List<? extends DataColumn>> ALL_COLUMNS = new Binding("ALL_COLUMNS");
     property(name: "ALL_COLUMNS", type: "java.util.List<com.intellij.database.extensions.DataColumn>")
     //    public static final Binding<List<? extends DataColumn>> COLUMNS = new Binding("COLUMNS");
@@ -33,7 +35,7 @@ contributor(ctx) {
     //    public static final Binding<Appendable> OUT = new Binding("OUT");
     property(name: "OUT", type: "java.lang.Appendable")
     //    public static final Binding<DataStream<?>> ROWS = new Binding("ROWS");
-    property(name: "ROWS", type: "com.intellij.database.extensions.DataStream<?>")
+    property(name: "ROWS", type: "Iterable<com.intellij.database.extensions.DataRow>")
     //    public static final Binding<Boolean> TRANSPOSED = new Binding("TRANSPOSED");
     property name: 'TRANSPOSED', type: 'java.lang.Boolean', doc: 'current database table'
 }
