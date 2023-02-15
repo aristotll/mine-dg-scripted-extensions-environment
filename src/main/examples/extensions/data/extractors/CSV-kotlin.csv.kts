@@ -17,23 +17,23 @@ import javax.script.Bindings
 //println(bindings::class)
 
 // https://youtrack.jetbrains.com/issue/KTIJ-13085/Kotlin-scripting-console-cant-resolve-bindings-variable
-class SimpleBindings(private val bindings: Bindings) {
-    val selection = get<Iterable<DasObject>?>("SELECTION")
-    val project = get<Project?>("PROJECT")
-    val files = get<Files?>("FILES")
-    val clipboard = get<Clipboard?>("CLIPBOARD")
-    val log = get<ScriptLogger?>("LOG")
-    val dialect = get<DatabaseDialect?>("DIALECT")
-    val table = get<DbTableImpl?>("TABLE")
-    val allColumns = get<List<DataColumn>?>("ALL_COLUMNS")
-    val columns = get<List<DataColumn>?>("COLUMNS")
-    val formatter = get<ValueFormatter?>("FORMATTER")
-    val out = get<Appendable?>("OUT")
-    val rows = get<Iterable<DataRow>?>("ROWS")
-    val transposed = get<Boolean?>("TRANSPOSED")
+class SimpleBindings(val bindings: Bindings) {
+    val selection = get<Iterable<DasObject>>("SELECTION")
+    val project = get<Project>("PROJECT")
+    val files = get<Files>("FILES")
+    val clipboard = get<Clipboard>("CLIPBOARD")
+    val log = get<ScriptLogger>("LOG")
+    val dialect = get<DatabaseDialect>("DIALECT")
+    val table = get<DbTableImpl>("TABLE")
+    val allColumns = get<List<DataColumn>>("ALL_COLUMNS")
+    val columns = get<List<DataColumn>>("COLUMNS")
+    val formatter = get<ValueFormatter>("FORMATTER")
+    val out = get<Appendable>("OUT")
+    val rows = get<Iterable<DataRow>>("ROWS")
+    val transposed = get<Boolean>("TRANSPOSED")
 
     @Suppress("UNCHECKED_CAST")
-    operator fun <T> get(key: String): T? = bindings[key] as T?
+    operator fun <T> get(key: String): T = bindings[key] as T
 }
 
 @Suppress("UNRESOLVED_REFERENCE")
@@ -42,25 +42,25 @@ val SEPARATOR = ","
 val QUOTE = "\""
 val NEWLINE = System.getProperty("line.separator")
 
-//def printRow = { values, valueToString ->
-//  values.eachWithIndex { value, idx ->
-//    def str = valueToString(value)
-//    def q = str.contains(SEPARATOR) || str.contains(QUOTE) || str.contains(NEWLINE)
-//    OUT.append(q ? QUOTE : "")
-//      .append(str.replace(QUOTE, QUOTE + QUOTE))
-//      .append(q ? QUOTE : "")
-//      .append(idx != values.size() - 1 ? SEPARATOR : NEWLINE)
-//  }
-//}
-//
-//if (TRANSPOSED) {
-//  def values = COLUMNS.collect { new ArrayList<String>() }
-//  ROWS.each { row -> COLUMNS.eachWithIndex { col, i -> values[i].add(FORMATTER.format(row, col)) } }
-//  values.each { printRow(it, { it }) }
-//} else {
-//  ROWS.each { row -> printRow(COLUMNS, { FORMATTER.format(row, it) }) }
-//}
-
-if (binding.transposed) {
-
+fun <T> printRow(values: List<T>, valueToString: T.() -> String) {
+    values.forEachIndexed { idx, value ->
+        val str = valueToString(value)
+        val q = str.contains(SEPARATOR) || str.contains(QUOTE) || str.contains(NEWLINE)
+        binding.out.append(if (q) QUOTE else "")
+            .append(str.replace(QUOTE, QUOTE + QUOTE))
+            .append(if (q) QUOTE else "")
+            .append(if (idx != values.size - 1) SEPARATOR else NEWLINE)
+    }
 }
+if (binding.transposed) {
+    val values = binding.columns.map { ArrayList<String>() }
+    binding.rows.forEach { row ->
+        binding.columns.forEachIndexed { i, col ->
+            values[i].add(binding.formatter.format(row, col))
+        }
+    }
+    values.forEach { columnValues -> columnValues.forEach { printRow(columnValues) { this } } }
+} else {
+    binding.rows.forEach { row -> printRow(binding.columns) { binding.formatter.format(row, this) } }
+}
+
