@@ -1,0 +1,39 @@
+final ctx = context(scope: scriptScope())
+
+/**
+ * @see com.intellij.database.extensions.ExtractorScripts
+ * @see com.intellij.database.extensions.DataExtractorBindings
+ * @see com.intellij.database.extensions.SchemaGeneratorBindings
+ */
+contributor(ctx) {
+    //
+    //public final class SchemaGeneratorBindings {
+    //    public static final Binding<JBIterable<DasObject>> SELECTION = new Binding("SELECTION");
+    property(name: 'SELECTION', type: 'com.intellij.util.containers.JBIterable<com.intellij.database.model.DasObject>', doc: 'the selected object')
+    //    public static final Binding<Clipboard> CLIPBOARD = new Binding("CLIPBOARD");
+    property(name: 'CLIPBOARD', type: 'com.intellij.database.extensions.Clipboard', doc: 'clipboard')
+    //    public static final Binding<ScriptLogger> LOG = new Binding("LOG");
+    property(name: 'LOG', type: 'com.intellij.database.extensions.ScriptLogger', doc: 'log')
+    //    public static final Binding<Files> FILES = new Binding("FILES");
+    property(name: "FILES", type: "com.intellij.database.view.generators.Files", doc: 'file folder choose helper')
+    //
+    //public final class DataExtractorBindings {
+    //    public static final Binding<Project> PROJECT = new Binding("PROJECT");
+    property name: 'PROJECT', type: 'com.intellij.openapi.project.Project', doc: 'current project'
+    //    public static final Binding<DatabaseDialect> DATABASE_DIALECT = new Binding("DIALECT");
+    property name: 'DATABASE_DIALECT', type: 'com.intellij.database.dialects.DatabaseDialect', doc: 'current database dialect'
+    //    public static final Binding<DasObject> DATABASE_TABLE = new Binding("TABLE");
+    property name: 'DATABASE_TABLE', type: 'com.intellij.database.model.DasObject', doc: 'current database table'
+    //    public static final Binding<List<? extends DataColumn>> ALL_COLUMNS = new Binding("ALL_COLUMNS");
+    property(name: "ALL_COLUMNS", type: "java.util.List<com.intellij.database.extensions.DataColumn>")
+    //    public static final Binding<List<? extends DataColumn>> COLUMNS = new Binding("COLUMNS");
+    property(name: "COLUMNS", type: "java.util.List<com.intellij.database.extensions.DataColumn>")
+    //    public static final Binding<ValueFormatter> FORMATTER = new Binding("FORMATTER");
+    property(name: "FORMATTER", type: "com.intellij.database.extensions.ValueFormatter")
+    //    public static final Binding<Appendable> OUT = new Binding("OUT");
+    property(name: "OUT", type: "java.lang.Appendable")
+    //    public static final Binding<DataStream<?>> ROWS = new Binding("ROWS");
+    property(name: "ROWS", type: "com.intellij.database.extensions.DataStream<?>")
+    //    public static final Binding<Boolean> TRANSPOSED = new Binding("TRANSPOSED");
+    property name: 'TRANSPOSED', type: 'java.lang.Boolean', doc: 'current database table'
+}
