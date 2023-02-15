@@ -1,6 +1,4 @@
 @file:Suppress("UNRESOLVED_REFERENCE")
-
-package examples.kotlins
 import com.intellij.database.extensions.Files
 import com.intellij.database.model.DasObject
 import com.intellij.database.model.DasTable
