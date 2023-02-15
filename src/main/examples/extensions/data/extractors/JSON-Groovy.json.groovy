@@ -1,3 +1,16 @@
+/*
+ * Available context bindings:
+ *   COLUMNS     List<DataColumn>
+ *   ROWS        Iterable<DataRow>
+ *   OUT         { append() }
+ *   FORMATTER   { format(row, col); formatValue(Object, col); getTypeName(Object, col); isStringLiteral(Object, col); }
+ *   TRANSPOSED  Boolean
+ * plus ALL_COLUMNS, TABLE, DIALECT
+ *
+ * where:
+ *   DataRow     { rowNumber(); first(); last(); data(): List<Object>; value(column): Object }
+ *   DataColumn  { columnNumber(), name() }
+ */
 
 
 import static com.intellij.openapi.util.text.StringUtil.escapeStringCharacters as escapeStr

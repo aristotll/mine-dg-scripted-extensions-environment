@@ -1,23 +1,63 @@
 plugins {
-  id 'groovy'
-  id 'java'
-  id "org.jetbrains.intellij" version "1.10.0"
+    id 'groovy'
+    id 'java'
+    id "org.jetbrains.intellij" version "1.10.0"
+    id "dev.clojurephant.clojure" version "0.8.0-beta.1"
 }
 
 repositories {
-  mavenCentral()
+    mavenCentral()
+    maven {
+        name = 'Clojars' // name can be omitted, but is helpful in troubleshooting
+//        url = 'https://clojars.org/repo/'
+        url = 'https://mirrors.tuna.tsinghua.edu.cn/clojars/'
+
+    }
 }
 
 intellij {
-  version = "2022.1.1"
-  type = "IU"
-  plugins = ["DatabaseTools"]
+    version = "2022.1.1"
+    type = "IU"
+    plugins = ["DatabaseTools"]
+}
+
+dependencies {
+    // requires a version of Clojure with prepl (1.10+)
+    implementation 'org.clojure:clojure:1.11.1'
+    // and any other dependencies you want on the compile classpath
+    // implementation 'group:artifact:version'
+
+    // needed for test integration
+    testRuntimeOnly 'org.ajoberstar:jovial:0.3.0'
+    // and any other test-specific dependencies
+    // testImplementation 'group:artifact:version'
 }
 
 sourceSets {
     main {
+        java { srcDirs = ['src/main'] }
         resources {
-            srcDirs= ["src/main/gsdl"]
+            srcDirs = ["src/main/gsdl"]
+        }
+    }
+}
+
+/*
+clojure {
+    builds {
+        main {
+// https://github.com/clojurephant/clojurephant/issues/108
+            srcDir 'src/main/examples/clojures/'
+        }
+    }
+}
+*/
+clojure {
+    builds {
+        main {
+            classpath.from = sourceSets.main.compileClasspath
+//            aotAll()
+//            srcDir 'src/main/examples/clojures/'
         }
     }
 }
@@ -27,7 +67,7 @@ tasks.register('extractExamples') {
         def collection = configurations.compileClasspath.asCollection()
         println sourceSets.main.compileClasspath.asCollection()
         copy {
-            from (zipTree(collection.find { it.name == "database-plugin.jar" })) {
+            from(zipTree(collection.find { it.name == "database-plugin.jar" })) {
                 include "extensions/**"
             }
             into "$rootDir/src/main/examples"

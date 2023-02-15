@@ -16,7 +16,7 @@ contributor(ctx) {
     //    public static final Binding<ScriptLogger> LOG = new Binding("LOG");
     property(name: 'LOG', type: 'com.intellij.database.extensions.ScriptLogger', doc: 'log')
     //    public static final Binding<Files> FILES = new Binding("FILES");
-    property(name: "FILES", type: "com.intellij.database.view.generators.Files", doc: 'file folder choose helper')
+    property(name: "FILES", type: "com.intellij.database.extensions.Files", doc: 'file folder choose helper')
     //
     //public final class DataExtractorBindings {
     //    public static final Binding<Project> PROJECT = new Binding("PROJECT");
