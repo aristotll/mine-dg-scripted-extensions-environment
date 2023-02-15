@@ -29,6 +29,7 @@ dependencies {
 
     // needed for test integration
     testRuntimeOnly 'org.ajoberstar:jovial:0.3.0'
+    implementation "org.jetbrains.kotlin:kotlin-script-runtime:1.8.0"
     // and any other test-specific dependencies
     // testImplementation 'group:artifact:version'
 }

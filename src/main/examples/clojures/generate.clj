@@ -1,3 +1,4 @@
+; modification of https://github.com/olsh/datagrip-poco-generator/blob/master/deprecated/Generate%20POCO.clj
 (ns examples.clojures.generate
   (:require [clojure.core :refer :all])
   )
