@@ -27,4 +27,4 @@ class SimpleBindings(private val bindings: Bindings) {
 }
 
 @Suppress("UNRESOLVED_REFERENCE")
-val binding = SimpleBindings(bindings)
+val binding: SimpleBindings = SimpleBindings(bindings as Bindings)

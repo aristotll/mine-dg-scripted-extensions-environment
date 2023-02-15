@@ -37,7 +37,7 @@ class SimpleBindings(val bindings: Bindings) {
 }
 
 @Suppress("UNRESOLVED_REFERENCE")
-val binding = SimpleBindings(bindings)
+val binding: SimpleBindings = SimpleBindings(bindings as Bindings)
 val SEPARATOR = ","
 val QUOTE = "\""
 val NEWLINE = System.getProperty("line.separator")
