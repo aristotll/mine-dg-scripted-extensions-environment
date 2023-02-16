@@ -1,5 +1,5 @@
-java_import "com.intellij.openapi.util.text.StringUtil"
-import com.intellij.database.model.DasObject
+require 'json'
+# java_import com.intellij.database.extensions.DataRow
 NEWLINE = java.lang.System.getProperty("line.separator")
 
 # the logic is very simple even the groovy implementation is very complicated
@@ -7,10 +7,12 @@ NEWLINE = java.lang.System.getProperty("line.separator")
 # create a list of map to represent the selection
 # convert it to json string
 
-result = ROWS.to_a.collect do
-  # @type [DasObject] row
+#  force evaluation
+result = []
+ROWS.each do
+  # @type [DataRow] row
 |row|
-  COLUMNS.map do
+  result << COLUMNS.map do
   |column|
     #         if (row.hasValue(col)) {
     #             def val = row.value(col)
@@ -21,5 +23,5 @@ result = ROWS.to_a.collect do
 end
 
 OUT.append(
-  (result.size() == 1 ? result[0] : result).to_json
+  JSON.generate(result.size() == 1 ? result[0] : result)
 )
