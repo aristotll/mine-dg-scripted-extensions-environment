@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@craftjs-typings/java.base": "^17.0.5-f2f0245"
+  }
+}

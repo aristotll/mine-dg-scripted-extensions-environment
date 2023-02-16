@@ -3,6 +3,7 @@ plugins {
     id 'java'
     id "org.jetbrains.intellij" version "1.10.0"
     id "dev.clojurephant.clojure" version "0.8.0-beta.1"
+    id "cz.habarta.typescript-generator" version "3.1.1185"
 }
 
 repositories {
@@ -21,6 +22,29 @@ intellij {
     plugins = ["DatabaseTools"]
 }
 
+// https://github.com/vojtechhabarta/typescript-generator#gradle
+// [Generate TypeScript interfaces from Java Classes ](https://medium.com/javarevisited/generate-typescript-interfaces-from-java-classes-d53f8c590500)
+generateTypeScript {
+    jsonLibrary = 'jackson2'
+    classes = [
+            "com.intellij.openapi.project.Project",
+            "com.intellij.database.psi.DbTableImpl",
+            "com.intellij.database.extensions.DataColumn",
+            'com.intellij.database.extensions.Clipboard',
+            'com.intellij.database.extensions.ScriptLogger',
+            'com.intellij.database.extensions.Files',
+            'com.intellij.database.extensions.DataRow',
+            "com.intellij.database.extensions.ValueFormatter",
+            "com.intellij.database.extensions.DataStream"
+    ]
+    outputFile = 'src/main/examples/js/generated.d.ts'
+    // https://github.com/vojtechhabarta/typescript-generator/pull/276
+    outputKind = 'module'
+    generateInfoJson = true
+//    namespace = 'Rest';
+    // https://github.com/vojtechhabarta/typescript-generator/pull/132/files
+    mapPackagesToNamespaces = true
+}
 dependencies {
     // requires a version of Clojure with prepl (1.10+)
     implementation 'org.clojure:clojure:1.11.1'
@@ -63,16 +87,16 @@ clojure {
     }
 }
 
-tasks.register('extractExamples') {
-    doLast {
-        def collection = configurations.compileClasspath.asCollection()
-        println sourceSets.main.compileClasspath.asCollection()
-        copy {
-            from(zipTree(collection.find { it.name == "database-plugin.jar" })) {
-                include "extensions/**"
-            }
-            into "$rootDir/src/main/examples"
-        }
-    }
-}
-tasks.setupDependencies.finalizedBy tasks.extractExamples
+//tasks.register('extractExamples') {
+//    doLast {
+//        def collection = configurations.compileClasspath.asCollection()
+//        println sourceSets.main.compileClasspath.asCollection()
+//        copy {
+//            from(zipTree(collection.find { it.name == "database-plugin.jar" })) {
+//                include "extensions/**"
+//            }
+//            into "$rootDir/src/main/examples"
+//        }
+//    }
+//}
+//tasks.setupDependencies.finalizedBy tasks.extractExamples

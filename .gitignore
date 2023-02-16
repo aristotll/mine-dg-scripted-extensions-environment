@@ -3,3 +3,5 @@
 build
 gradle
 settings.gradle
+node_modules
+/src/main/examples/js/typescript-generator-info.json

@@ -6,6 +6,8 @@ final ctx = context(filetypes: ["groovy"])
  * @see com.intellij.database.extensions.DataExtractorBindings*
  * @see com.intellij.database.extensions.SchemaGeneratorBindings*
  * @see com.intellij.database.extensions.SchemaScripts#prepareEngine
+ *
+ * @see com.intellij.database.extractors.ScriptDataExtractor#prepareEngine
  */
 contributor(ctx) {
     //

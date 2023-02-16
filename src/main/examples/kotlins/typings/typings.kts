@@ -8,6 +8,7 @@ import javax.script.Bindings
 
 // https://youtrack.jetbrains.com/issue/KTIJ-13085/Kotlin-scripting-console-cant-resolve-bindings-variable
 class SimpleBindings(private val bindings: Bindings) {
+    // lazy properties is not necessary here because the overhead is negligible
     val selection = get<Iterable<DasObject>>("SELECTION")
     val project = get<Project>("PROJECT")
     val files = get<Files>("FILES")
