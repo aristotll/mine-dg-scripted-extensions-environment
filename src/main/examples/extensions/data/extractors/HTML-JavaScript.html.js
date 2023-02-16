@@ -47,7 +47,7 @@ function output(...args) {
     //     .asType( "/Users/sh00636ml/polyglot/polyglot.log", java.io.File)
     //     .append(args.join(" ") + NEWLINE);
     // com.intellij.openapi.util.io.FileUtil.appendToFile(file, lines)
-    com.intellij.idea.LoggerFactory.getLoggerInstance("polyglot").info(lines)
+    // com.intellij.idea.LoggerFactory.getLoggerInstance("polyglot").info(lines)
 
     //   Path path = Paths.get(fileName);
     //     byte[] strToBytes = str.getBytes();
