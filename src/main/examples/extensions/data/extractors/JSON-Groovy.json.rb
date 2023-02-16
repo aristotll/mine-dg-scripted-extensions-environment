@@ -1,18 +1,18 @@
 require 'json'
 # java_import com.intellij.database.extensions.DataRow
-NEWLINE = java.lang.System.getProperty("line.separator")
-
 # the logic is very simple even the groovy implementation is very complicated
 
 # create a list of map to represent the selection
 # convert it to json string
 
 #  force evaluation
-result = []
-ROWS.each do
+# rows = ROWS.toList
+# OUT.append("wrong")
+# OUT.append(ROWS.to_s)
+result = ROWS.transform do
   # @type [DataRow] row
 |row|
-  result << COLUMNS.map do
+  COLUMNS.map do
   |column|
     #         if (row.hasValue(col)) {
     #             def val = row.value(col)
@@ -23,5 +23,6 @@ ROWS.each do
 end
 
 OUT.append(
-  JSON.generate(result.size() == 1 ? result[0] : result)
+  # result.to_list.to_s
+  JSON.generate(result.to_list)
 )
