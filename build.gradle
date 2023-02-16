@@ -1,11 +1,9 @@
-import com.github.jrubygradle.JRubyExec
 plugins {
     id 'groovy'
     id 'java'
     id "org.jetbrains.intellij" version "1.10.0"
     id "dev.clojurephant.clojure" version "0.8.0-beta.1"
     id "cz.habarta.typescript-generator" version "3.1.1185"
-    id "com.github.jruby-gradle.base" version "2.0.0"
 }
 
 repositories {
@@ -16,7 +14,6 @@ repositories {
         url = 'https://mirrors.tuna.tsinghua.edu.cn/clojars/'
 
     }
-    ruby.gems()
 }
 
 intellij {
@@ -59,13 +56,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-script-runtime:1.8.0"
     // and any other test-specific dependencies
     // testImplementation 'group:artifact:version'
-    gems "rubygems:colorize:0.7.7+"
-//    jrubyExec "rubygems:colorize:0.7.7+"
-}
-
-task printSomePrettyOutputPlease(type: JRubyExec) {
-    description "Execute our nice local print-script.rb"
-    script "${projectDir}/print-script.rb"
 }
 
 sourceSets {
