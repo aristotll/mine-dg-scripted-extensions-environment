@@ -107,3 +107,6 @@ ALL_COLUMNS = binding.all_columns
 COLUMNS = binding.columns
 
 
+
+# -Dorg.jruby.embed.localcontext.scope=threadsafe
+# https://github.com/jruby/jruby/issues/3731#issuecomment-197876588

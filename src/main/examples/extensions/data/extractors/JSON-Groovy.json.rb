@@ -5,10 +5,6 @@ require 'json'
 # create a list of map to represent the selection
 # convert it to json string
 
-#  force evaluation
-# rows = ROWS.toList
-# OUT.append("wrong")
-# OUT.append(ROWS.to_s)
 result = ROWS.transform do
   # @type [DataRow] row
 |row|
@@ -23,6 +19,5 @@ result = ROWS.transform do
 end
 
 OUT.append(
-  # result.to_list.to_s
   JSON.generate(result.to_list)
 )
