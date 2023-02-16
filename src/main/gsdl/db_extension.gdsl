@@ -38,7 +38,7 @@ contributor(ctx) {
     //    public static final Binding<Appendable> OUT = new Binding("OUT");
     property(name: "OUT", type: "java.lang.Appendable")
     //    public static final Binding<DataStream<?>> ROWS = new Binding("ROWS");
-    property(name: "ROWS", type: "Iterable<com.intellij.database.extensions.DataRow>")
+    property(name: "ROWS", type: "com.intellij.util.containers.JBIterable<com.intellij.database.extensions.DataRow>")
     //    public static final Binding<Boolean> TRANSPOSED = new Binding("TRANSPOSED");
     property name: 'TRANSPOSED', type: 'java.lang.Boolean', doc: 'current database table'
 }
