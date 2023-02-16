@@ -1,7 +1,3 @@
-; modification of https://github.com/olsh/datagrip-poco-generator/blob/master/deprecated/Generate%20POCO.clj
-(ns user
-  (:require [clojure.core :refer :all])
-  )
 ;;    property(name: 'SELECTION', type: 'com.intellij.util.containers.JBIterable<com.intellij.database.model.DasObject>', doc: 'the selected object')
 ;(def ^com.intellij.util.containers.JBIterable selection SELECTION)
 ;(def ^com.intellij.database.extensions.Clipboard clipboard CLIPBOARD)

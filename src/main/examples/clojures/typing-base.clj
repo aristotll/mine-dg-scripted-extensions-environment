@@ -16,13 +16,3 @@
 (declare ^java.lang.Appendable OUT)
 (declare ^com.intellij.database.extensions.DataStream ROWS)
 (declare ^java.lang.Boolean TRANSPOSED)
-
-
-
-(.chooseDirectoryAndSave FILES
-                         "Choose directory"
-                         "Choose where to generate POCOs to"
-                         (proxy [com.intellij.util.Consumer] []
-                           (consume [directory]
-                             (generate-pocos directory)
-                             (.refresh FILES directory))))
